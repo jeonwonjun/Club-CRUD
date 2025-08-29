@@ -8,17 +8,15 @@ import java.time.LocalDateTime;
 
 @Getter
 @Setter
+@ToString
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
-@ToString
 @JsonNaming(value = PropertyNamingStrategies.SnakeCaseStrategy.class)
-public class UserDto {
+public class UserRequest {
 
-    private Long id;
     private Long clubId;
     private String name;
     private int age;
     private LocalDateTime registedAt;
-
 }

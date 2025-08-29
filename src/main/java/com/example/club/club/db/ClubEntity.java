@@ -1,10 +1,8 @@
 package com.example.club.club.db;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.example.club.user.db.UserEntity;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
 import lombok.*;
-import org.hibernate.annotations.Where;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -18,15 +16,23 @@ import java.util.List;
 @Entity(name = "club")
 public class ClubEntity {
 
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long clubId;
+    private Long id;
 
-    @NotBlank
+    @Column(name = "club_name", nullable = false, length = 50)
     private String clubName;
 
-    @NotBlank
+    @Column(name = "club_description", nullable = false, columnDefinition = "TEXT")
     private String clubDescription;
 
+    @Column(name = "created_at", nullable = false)
     private LocalDateTime createdAt;
+
+    @OneToMany(
+            mappedBy = "club"
+    )
+    @Builder.Default
+    private List<UserEntity> userList = List.of();
 }

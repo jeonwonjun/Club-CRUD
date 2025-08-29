@@ -15,11 +15,7 @@ import java.time.LocalDateTime;
 @JsonNaming(value = PropertyNamingStrategies.SnakeCaseStrategy.class)
 public class ClubDto {
     private Long clubId;
-
     private String clubName;
-
     private String clubDescription;
-
     private LocalDateTime createdAt;
-
 }
