@@ -4,7 +4,6 @@ import com.example.club.club.db.ClubEntity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
-import org.springframework.data.annotation.Id;
 
 import java.time.LocalDateTime;
 
@@ -28,10 +27,10 @@ public class UserEntity {
     private ClubEntity club;
 
     @Column(name = "user_name", nullable = false, length = 50)
-    private String userNname;
+    private String userName;
 
     @Column(name = "user_age", nullable = false)
-    private int userAge;
+    private Integer userAge;
 
     @Column(name = "registed_at", nullable = false)
     private LocalDateTime registedAt;

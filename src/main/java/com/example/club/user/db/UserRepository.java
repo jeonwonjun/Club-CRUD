@@ -6,5 +6,5 @@ import java.util.List;
 
 public interface UserRepository extends JpaRepository<UserEntity, Long> {
     // 특정 동아리에 속한 모든 회원 조회
-    List<UserEntity> findAllByPostIdOrderById(Long postId);
+    List<UserEntity> findAllByClubIdOrderById(Long clubId);
 }

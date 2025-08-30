@@ -4,6 +4,7 @@ import com.example.club.club.db.ClubEntity;
 import com.example.club.club.model.ClubDto;
 import com.example.club.crud.Converter;
 import com.example.club.user.db.UserRepository;
+import com.example.club.user.service.UserConverter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -15,13 +16,14 @@ import java.util.stream.Collectors;
 public class ClubConverter implements Converter<ClubDto, ClubEntity> {
 
     private final UserRepository userRepository;
+    private final UserConverter userConverter;
 
     public ClubDto toDto(ClubEntity clubEntity) {
 
-//        var userList = clubEntity.getUserList()
-//                .stream()
-//                .map(postConverter::toDto)
-//                .collect(Collectors.toList());
+        var userList = clubEntity.getUserList()
+                .stream()
+                .map(userConverter::toDto)
+                .collect(Collectors.toList());
 
 
         return ClubDto.builder()
