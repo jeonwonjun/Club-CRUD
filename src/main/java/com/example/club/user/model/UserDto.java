@@ -16,13 +16,9 @@ import java.time.LocalDateTime;
 public class UserDto {
 
     private Long userId;
-
     private Long clubId;
-
     private String userName;
-
     private Integer userAge;
-
     private LocalDateTime registedAt;
 
 }
