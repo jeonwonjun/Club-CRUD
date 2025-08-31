@@ -6,29 +6,28 @@ CLUB API Application은 클럽과 회원정보를 저장하고, RESTful API로 �
 - 동아리 만들기, 동아리 정보 수정하기, 동아리 삭제하기 , 동아리 목록 조회하기
 - 각 동아리에 회원 등록하기, 회원 정보 수정하기, 회원 삭제하기, 동아리의 회원 목록 조회하기
 
-/*### API 스펙
+### API 스펙
 
 | Method | Endpoint                 | Request Body                                                                                 | Response Body                                                                                                                                                                                                                  | Description                             |
 |--------|--------------------------|----------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------|
-| POST   | `/tasks`                 | `{ "title": "Task 1", "description": "Do something", "dueDate": "2023-05-01" }`              | `{"id": 1, "title": "Task 1", "description": "Do something", "dueDate": "2023-05-01", "status": "TODO"}`                                                                                                                       | 새로운 할 일 생성                              |
-| GET    | `/tasks`                 | `dueDate` (optional)                                                                         | `[{"id": 1, "title": "Task 1", "description": "Do something", "dueDate": "2023-05-01", "status": "TODO"}, {"id": 2, "title": "Task 2", "description": "Do something else", "dueDate": "2023-05-01", "status": "IN_PROGRESS"}]` | 모든 할 일 조회(마감일이 있을 경우, 마감일에 해당하는 할 일 조회) |
-| GET    | `/tasks/{id}`            | N/A                                                                                          | `{"id": 1, "title": "Task 1", "description": "Do something", "dueDate": "2023-05-01", "status": "TODO"}`                                                                                                                       | 특정 ID 에 해당하는 할 일 조회                     |
-| GET    | `/tasks/status/{status}` | N/A                                                                                          | `[{"id": 1, "title": "Task 1", "description": "Do something", "dueDate": "2023-05-01", "status": "TODO"}, {"id": 3, "title": "Task 3", "description": "Do something else", "dueDate": "2023-05-02", "status": "TODO"}]`        | 특정 상태에 해당하는 할 일 모두 조회                   |
-| PUT    | `/tasks/{id}`            | `{ "title": "Updated Task 1", "description": "Do something else", "dueDate": "2023-05-02" }` | `{"id": 1, "title": "Updated Task 1", "description": "Do something else", "dueDate": "2023-05-02", "status": "TODO"}`                                                                                                          | 특정 ID 에 해당하는 할 일 수정                     |
-| PATCH  | `/tasks/{id}/status`     | `{ "status": "IN_PROGRESS" }`                                                                | `{"id": 1, "title": "Task 1", "description": "Do something", "dueDate": "2023-05-01", "status": "IN_PROGRESS"}`                                                                                                                | 특정 ID 에 해당하는 할 일의 상태 변경                 |
-| DELETE | `/tasks/{id}`            | N/A                                                                                          | `{ "success": true }`                                                                                                                                                                                                          | 특정 ID 에 해당하는 할 일 삭제                     |
-*/
+| POST   | `/api/club`                 | `{ "club_name": "개그동아리", "description": "Do something"}`              | `{"id": 1, "club_name": "개그동아리", "description": "Do something", "dueDate": "2025-08-31"}`                                                                                                                       | 새로운 동아리 생성                              |
+| GET    | `/api/club/all`                 |     N/A                                                                  | `[{"id": 1, "club_name": "개그동아리", "description": "Do something", "dueDate": "2025-08-31", "userList": []}, {"id": 2, "club_name": "풋살동아리", "description": "Do something", "dueDate": "2025-08-31", "userList": []}]` | 모든 동아리 조회 |
+| GET    | `/api/club/id/{id}`            | N/A                                                                                          | `{"id": 1, "club_name": "개그동아리", "description": "Do something", "dueDate": "2025-08-31", "userList": []}`                                                                                                                       | 특정 ID 에 해당하는 동아리 조회                     |
+| PUT    | `/api/club/id/{id}`            | `{ "club_name": "코믹동아리", "description": "Do something else"}` | `{"id": 1, "club_name": "코믹동아리", "description": "Do something else", "dueDate": "2025-08-31", "userList": []}`                                                                                                          | 특정 ID 에 해당하는 동아리 수정                     |
+| DELETE | `/api/club/id/{id}`            | N/A                                                                                          | N/A                                                                                                                                                                                                         | 특정 ID 에 해당하는 동아리 삭제                     |
+* user도 같은 원리
 
 ### 리소스 표현
 
 - 동아리 (Club):
-    - club_id: `Long`
+    - id: `Long`
     - club_name: `String`
     - club_description: `String`
     - created_at: `LocalDateTime`
 
 - 회원 (User):
-    - user_id: `Long`
+    - id: `Long`
+    - club_id: `Long`
     - user_name: `String`
     - user_age: `Integer`
     - registed_at: `LocalDateTime`
@@ -49,20 +48,6 @@ CLUB API Application은 클럽과 회원정보를 저장하고, RESTful API로 �
 - Spring Boot Test
 - Mockito
 - JUnit 5
-
-### 설치 및 실행
-1. 레포지토리를 클론하고 프로젝트 디렉토리로 이동합니다 
-```sh
-$> git clone https://github.com/jeonwonjun/Club-CRUD.git
-$> cd Club-CRUD   # 프로젝트 디렉토리로 이동
-```
-2. gradle 로 프로젝트를 빌드합니다
-```sh
-$> gradle clean build
-```
-3. JAR 파일을 실행합니다
-```sh
-$> java -jar build/libs/todo-server-1.0-SNAPSHOT.jar
 ```
 
 ## 라이센스
