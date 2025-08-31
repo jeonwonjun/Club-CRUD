@@ -19,9 +19,10 @@ public class UserConverter implements Converter<UserDto, UserEntity> {
     public UserDto toDto(UserEntity userEntity) {
 
         UserDto.builder()
-                .userId(userEntity.getId())
+                .id(userEntity.getId())
                 .clubId(userEntity.getClub().getId())
                 .userName(userEntity.getUserName())
+                .userAge(userEntity.getUserAge())
                 .registedAt(userEntity.getRegistedAt())
                 .build();
 
@@ -33,9 +34,10 @@ public class UserConverter implements Converter<UserDto, UserEntity> {
         var clubEntity = clubRepository.findById(userDto.getClubId());
 
         return UserEntity.builder()
-                .id(userDto.getClubId()) // null: save, not null: update
+                .id(userDto.getId()) // null: save, not null: update
                 .club(clubEntity.orElseGet(()-> null))
                 .userName(userDto.getUserName())
+                .userAge(userDto.getUserAge())
                 .registedAt((userDto.getRegistedAt() != null) ? userDto.getRegistedAt() : LocalDateTime.now())
                 .build();
     }

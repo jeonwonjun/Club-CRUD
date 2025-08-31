@@ -22,17 +22,13 @@ public class UserEntity {
 
     // FK → Club
     @ManyToOne
-    @ToString.Exclude
     @JsonIgnore
     private ClubEntity club;
 
-    @Column(name = "user_name", nullable = false, length = 50)
     private String userName;
 
-    @Column(name = "user_age", nullable = false)
     private Integer userAge;
 
-    @Column(name = "registed_at", nullable = false)
     private LocalDateTime registedAt;
 
 }

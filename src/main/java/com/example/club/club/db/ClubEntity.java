@@ -21,13 +21,11 @@ public class ClubEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "club_name", nullable = false, length = 50)
     private String clubName;
 
-    @Column(name = "club_description", nullable = false, columnDefinition = "TEXT")
+    @Column(columnDefinition = "TEXT")
     private String clubDescription;
 
-    @Column(name = "created_at", nullable = false)
     private LocalDateTime createdAt;
 
     @OneToMany(

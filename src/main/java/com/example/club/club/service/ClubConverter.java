@@ -27,19 +27,20 @@ public class ClubConverter implements Converter<ClubDto, ClubEntity> {
 
 
         return ClubDto.builder()
-                .clubId(clubEntity.getId())
+                .id(clubEntity.getId())
                 .clubName(clubEntity.getClubName())
                 .clubDescription(clubEntity.getClubDescription())
                 .createdAt(clubEntity.getCreatedAt())
+                .userList(userList)
                 .build();
     }
 
     @Override
     public ClubEntity toEntity(ClubDto clubDto) {
-        var postEntity = userRepository.findById(clubDto.getClubId());
+        var userEntity = userRepository.findById(clubDto.getId());
 
         return ClubEntity.builder()
-                .id(clubDto.getClubId()) // null: save, not null: update
+                .id(clubDto.getId()) // null: save, not null: update
                 .clubName(clubDto.getClubName())
                 .createdAt((clubDto.getCreatedAt() != null) ? clubDto.getCreatedAt() : LocalDateTime.now())
                 .build();

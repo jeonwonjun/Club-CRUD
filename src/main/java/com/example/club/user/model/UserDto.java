@@ -15,10 +15,10 @@ import java.time.LocalDateTime;
 @JsonNaming(value = PropertyNamingStrategies.SnakeCaseStrategy.class)
 public class UserDto {
 
-    private Long userId;
+    private Long id;
     private Long clubId;
     private String userName;
-    private Integer userAge;
+    private int userAge;
     private LocalDateTime registedAt;
 
 }

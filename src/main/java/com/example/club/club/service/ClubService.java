@@ -7,22 +7,33 @@ import com.example.club.club.model.ClubRequest;
 import com.example.club.common.Api;
 import com.example.club.common.Pagination;
 import com.example.club.crud.CRUDAbstractService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.apache.logging.log4j.util.Strings;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 
+import java.sql.Date;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.Objects;
 import java.util.Optional;
 
 @Service
-@RequiredArgsConstructor
-public class ClubService extends CRUDAbstractService<ClubDto, ClubEntity> {
+public class ClubService extends CRUDAbstractService<ClubEntity, Long> {
 
-/*    private final ClubRepository clubRepository;
+    private final ClubRepository clubRepository;
     private final ClubConverter clubConverter;
+
+    public ClubService(ClubRepository clubRepository, ClubConverter clubConverter){
+        this.clubRepository = clubRepository;
+        this.clubConverter = clubConverter;
+    }
 
     // CREATE
     public ClubDto createClub(ClubRequest clubRequest) {
@@ -36,9 +47,40 @@ public class ClubService extends CRUDAbstractService<ClubDto, ClubEntity> {
         return clubConverter.toDto(saveEntity);
     }
 
-    public ClubDto view(Long id) {
+    public ClubDto updateClub(Long id, String name, String description) {
+        // Ensure the ID from the URL matches the ID in the request body for consistency
+        // userEntity.setId(id); // You might want to do this to ensure consistency
+
+        // First, retrieve the existing entity
+        ClubEntity existingClub = clubRepository.findById(id)
+                .orElseThrow(() -> new NoSuchElementException("Club not found with ID: " + id));
+
+        existingClub.setClubName(Strings.isEmpty(name) ?
+                existingClub.getClubName() : name);
+        existingClub.setClubDescription(Strings.isEmpty(description) ?
+                existingClub.getClubDescription() : description);
+
+        var updated = this.clubRepository.save(existingClub);
+        return clubConverter.toDto(updated);
+
+    }
+
+    public ClubEntity view(Long id) {
         var entity = clubRepository.findById(id).get();
-        return clubConverter.toDto(entity);
+        return entity;
+    }
+
+    public ClubEntity save(ClubEntity club) {
+        // save
+        return clubRepository.save(club);
+    }
+
+    // delete
+    public void deleteClub(Long id) {
+        if (!clubRepository.existsById(id)) {
+            throw new NoSuchElementException("Club not found with ID: " + id);
+        }
+        clubRepository.deleteById(id);
     }
 
     public Api<List<ClubEntity>> all(Pageable pageable) {
@@ -58,6 +100,6 @@ public class ClubService extends CRUDAbstractService<ClubDto, ClubEntity> {
                 .build();
 
         return response;
-    }*/
+    }
 
 }
